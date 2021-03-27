@@ -9,6 +9,8 @@ import './index.css';
 // TODO setja upp router
 
 ReactDOM.render(
-  <App />,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );

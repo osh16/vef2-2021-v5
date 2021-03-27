@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router';
-
 import { Layout } from './components/layout/Layout';
 import { Index } from './pages/Index';
 import { NewsPage } from './pages/News';

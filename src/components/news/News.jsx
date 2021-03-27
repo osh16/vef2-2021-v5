@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { NewsList } from '../news-list/NewsList'
+import { NewsList } from '../news-list/NewsList';
+import s from './News.module.scss';
 
 const url = process.env.REACT_APP_API_URL;
 // frettasida
@@ -32,13 +33,14 @@ export function News() {
 
   if (error) return 'error';
   if (loading) return 'loading...';
+
   if (data) {
     const news = [];
     for (let i = 0; i < data.length; i++) {
       news.push(<NewsList id={data[i].id} partial={true}/>)
     }
     return (
-      news
+      <div className={s.news}>{news}</div>
     )
   }
 }

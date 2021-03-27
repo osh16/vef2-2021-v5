@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { NotFound } from '../../pages/NotFound';
+import { Route } from 'react-router';
+import s from "./NewsList.module.scss"
 
 const url = process.env.REACT_APP_API_URL;
 // yfirlit frettaflokka
@@ -7,6 +10,7 @@ export function NewsList({id, partial}) {
   const [data, setData ] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState(null);
 
   if (id == null) {                    
     id = (window.location.pathname).substr(1,) // sma hack
@@ -15,6 +19,9 @@ export function NewsList({id, partial}) {
     async function fetchData() {
       await fetch(url + id)
         .then(response => {
+            if (response.status === 404) {
+              setStatus('404');
+            }
             if (response.ok) {
                 return response.json();
             }
@@ -25,7 +32,7 @@ export function NewsList({id, partial}) {
         })
         .catch(error => {
             console.error("error fetching data")
-            setError(error);
+            setError(true);
         })
         .finally(() => {
             setLoading(false)
@@ -33,8 +40,10 @@ export function NewsList({id, partial}) {
     }
     fetchData()
   }, [])
-  if (error) return 'error: ';
-  if (loading) return 'loading...';
+  // skitaredding
+  if (status) return <div className={s.newslist}><Route component={NotFound}/></div>
+  if (error) return <div className={s.newslist}>Villa kom upp</div>
+  if (loading) return <div className={s.newslist}>Loading...</div>
   if (data) {
     const news = [];
     const header = data.title;
@@ -50,10 +59,10 @@ export function NewsList({id, partial}) {
       }
     }
     return (
-      <div id={id}>
+      <div className={s.newslist} id={id}>
         <h2>{header}</h2>
         <ul>{news}</ul>
-        <p> {
+        <p className={s.newslist__link}> {
           partial ? 
           <Link to={id}>Allar frettir</Link> :
           <Link to='/'>Til baka</Link>
