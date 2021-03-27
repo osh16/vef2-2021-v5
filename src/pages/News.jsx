@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NewsList } from '../components/news-list/NewsList'
 
 const url = process.env.REACT_APP_API_URL;
 export function NewsPage() {
@@ -33,10 +34,10 @@ export function NewsPage() {
   if (data) {
     const news = [];
     for (let i = 0; i < data.length; i++) {
-      news.push(<li>{{title : data[i].title}}</li>)
+      news.push(<NewsList id={data[i].id} title={data[i].title} url={data[i].url}/>)
     }
     return (
-      <ul>{news.title}</ul>
+      <ul>{news}</ul>
     )
   }
 }
