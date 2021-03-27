@@ -42,8 +42,8 @@ export function NewsList({id, partial}) {
   }, [])
   // skitaredding
   if (status) return <div className={s.newslist}><Route component={NotFound}/></div>
-  if (error) return <div className={s.newslist}>Villa kom upp</div>
-  if (loading) return <div className={s.newslist}>Loading...</div>
+  if (error) return <div className={s.newslist}><p>Villa kom upp</p></div>
+  if (loading) return <div className={s.newslist}><p>Loading...</p></div>
   if (data) {
     const news = [];
     const header = data.title;
