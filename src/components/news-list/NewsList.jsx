@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
+const url = process.env.REACT_APP_API_URL;
 // yfirlit frettaflokka
-export function NewsList({id, title, url}) {
+export function NewsList({id, partial}) {
   const [data, setData ] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {        
     async function fetchData() {
-      await fetch(url)
+      await fetch(url + id)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -32,16 +33,21 @@ export function NewsList({id, title, url}) {
   if (loading) return 'loading...';
   if (data) {
     const news = [];
-    for (let i = 0; i < data.items.length; i++) {
-      news.push(<li><a href={data.items[i].link}>{data.items[i].title}</a></li>);
-      //news[i] = { id : data.items[i].id, title : data.items[i].title, link : data.items[i].link }
-      //console.log(data.items[i])
+    const header = data.title;
+    if (partial) {
+      for (let i = 0; i < 5; i++) {
+        news.push(<li><a href={data.items[i].link}>{data.items[i].title}</a></li>);
+      }
+    } else {
+      for (let i = 0; i < data.items.length; i++) {
+        news.push(<li><a href={data.items[i].link}>{data.items[i].title}</a></li>);
+      }
     }
     return (
       <div id={id}>
-        <h2>{title}</h2>
+        <h2>{header}</h2>
         <p>{news}</p>
-        <p>til baka</p>
+        <p>{partial ? "Allar frettir" : "Til baka"}</p>
       </div>
     )
   }

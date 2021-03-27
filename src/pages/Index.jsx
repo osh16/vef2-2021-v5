@@ -1,4 +1,5 @@
 
+import { News } from '../components/news/News'
 export function Index() {
-  // TODO útfæra yfirlitssíðu
+  <News />
 }
