@@ -38,7 +38,7 @@ export function News() {
       news.push(<NewsList id={data[i].id} partial={true}/>)
     }
     return (
-      <ul>{news}</ul>
+      news
     )
   }
 }

@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom'
 
 export function NotFound() {
-  // TODO útfæra 404 síðu
+  return (
+    <Link to='/'>Til baka</Link>
+  )
 }
